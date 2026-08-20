@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.scss';
 import Carousel from './components/Carousel';
+import { ICarousel } from './model/model';
 
-interface State {
-  images: string[];
-}
+type State = ICarousel;
+type NumericField = 'step' | 'frameSize' | 'itemWidth' | 'animationDuration';
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     images: [
       './img/1.png',
       './img/2.png',
@@ -20,17 +20,91 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
   };
 
+  handleChange =
+    (field: NumericField) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      this.setState({
+        [field]: +event.target.value,
+      } as Pick<State, NumericField>);
+    };
+
   render() {
-    const { images } = this.state;
+    const { images, step, frameSize, itemWidth, animationDuration, infinite } =
+      this.state;
 
     return (
       <div className="App">
-        {/* eslint-disable-next-line */}
-        <h1>Carousel with {images.length} images</h1>
+        <h1 data-cy="title" className="title">
+          Carousel with {images.length} images
+        </h1>
+        <div className="controls">
+          <label className="label">
+            Step:
+            <input
+              className="input"
+              type="number"
+              value={step}
+              onChange={this.handleChange('step')}
+              {...{ for: 'stepId' }}
+            />
+          </label>
 
-        <Carousel />
+          <label className="label">
+            Frame size:
+            <input
+              className="input"
+              type="number"
+              value={frameSize}
+              onChange={this.handleChange('frameSize')}
+              {...{ for: 'frameId' }}
+            />
+          </label>
+
+          <label className="label">
+            Item width:
+            <input
+              className="input"
+              type="number"
+              value={itemWidth}
+              onChange={this.handleChange('itemWidth')}
+              {...{ for: 'itemId' }}
+            />
+          </label>
+
+          <label className="label">
+            Animation duration (ms):
+            <input
+              className="input"
+              type="number"
+              value={animationDuration}
+              onChange={this.handleChange('animationDuration')}
+            />
+          </label>
+
+          <label className="label">
+            Infinite:
+            <input
+              className="input"
+              type="checkbox"
+              checked={infinite}
+              onChange={() => this.setState({ infinite: !this.state.infinite })}
+            />
+          </label>
+        </div>
+        <Carousel
+          images={images}
+          step={step}
+          frameSize={frameSize}
+          itemWidth={itemWidth}
+          animationDuration={animationDuration}
+          infinite={infinite}
+        />
       </div>
     );
   }
