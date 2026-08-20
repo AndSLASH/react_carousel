@@ -29,8 +29,10 @@ class App extends React.Component<{}, State> {
 
   handleChange =
     (field: NumericField) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+
       this.setState({
-        [field]: +event.target.value,
+        [field]: value === '' ? '' : +value,
       } as Pick<State, NumericField>);
     };
 

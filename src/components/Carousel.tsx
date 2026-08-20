@@ -9,7 +9,7 @@ const Carousel: React.FC<CarouselProps> = props => {
     props;
 
   const [position, setPosition] = useState(0);
-  const maxPosition = images.length - frameSize;
+  const maxPosition = Math.max(images.length - frameSize, 0);
 
   const handlePrev = () => {
     setPosition(prev => {
