@@ -46,46 +46,47 @@ class App extends React.Component<{}, State> {
           Carousel with {images.length} images
         </h1>
         <div className="controls">
-          <label className="label">
+          <label className="label" htmlFor="stepId">
             Step:
             <input
               className="input"
               type="number"
               value={step}
               onChange={this.handleChange('step')}
-              {...{ for: 'stepId' }}
+              id="stepId"
             />
           </label>
 
-          <label className="label">
+          <label className="label" htmlFor="frameId">
             Frame size:
             <input
               className="input"
               type="number"
               value={frameSize}
               onChange={this.handleChange('frameSize')}
-              {...{ for: 'frameId' }}
+              id="frameId"
             />
           </label>
 
-          <label className="label">
+          <label className="label" htmlFor="itemId">
             Item width:
             <input
               className="input"
               type="number"
               value={itemWidth}
               onChange={this.handleChange('itemWidth')}
-              {...{ for: 'itemId' }}
+              id="itemId"
             />
           </label>
 
-          <label className="label">
+          <label className="label" htmlFor="animationId">
             Animation duration (ms):
             <input
               className="input"
               type="number"
               value={animationDuration}
               onChange={this.handleChange('animationDuration')}
+              id="animationId"
             />
           </label>
 
